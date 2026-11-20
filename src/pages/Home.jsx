@@ -7,10 +7,12 @@ import {
   Sparkles,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import Button from "../components/Button";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import PlanCard from "../components/PlanCard";
+import PlanOutingModal from "../components/PlanOutingModal";
 import PlannerCard from "../components/PlannerCard";
 import { plans } from "../data/mockData";
 
@@ -95,6 +97,8 @@ function HeroCollage() {
 }
 
 export default function Home({ savedPlanIds, onToggleSaved }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <>
       <Navbar />
@@ -117,7 +121,7 @@ export default function Home({ savedPlanIds, onToggleSaved }) {
               day worth remembering.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button to="#planner">
+              <Button to="/results">
                 Build My Outing <Sparkles size={16} />
               </Button>
               <Button to="#examples" variant="secondary">
@@ -168,15 +172,46 @@ export default function Home({ savedPlanIds, onToggleSaved }) {
                   Same starting point. Completely different experiences.
                 </p>
               </div>
-              <Link
-                to="/results"
-                className="inline-flex items-center gap-2 text-sm font-extrabold text-[#514943] hover:text-[#ff7f6e]"
-              >
-                See all ideas <ArrowRight size={16} />
-              </Link>
             </div>
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-              {plans.slice(0, 4).map((plan) => (
+            
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {/* Plan Outing CTA Card */}
+              <div
+                onClick={() => setIsModalOpen(true)}
+                className="overflow-hidden rounded-[28px] bg-gradient-to-br from-[#ff7f6e] to-[#ff6a56] shadow-lg cursor-pointer hover:shadow-xl transition transform hover:-translate-y-1"
+              >
+                <div className="relative h-52 bg-gradient-to-t from-[#ff7f6e]/40 to-transparent flex items-center justify-center">
+                  <span className="text-6xl">🗺️</span>
+                </div>
+
+                <div className="p-5">
+                  <h2 className="text-xl font-extrabold text-white">
+                    Plan Your Outing
+                  </h2>
+
+                  <p className="mt-2 text-sm text-white/90">
+                    Tell us your location and find amazing places nearby, personalized for you.
+                  </p>
+
+                  <div className="my-5 flex flex-wrap gap-2">
+                    <span className="rounded-full bg-white/20 px-3 py-2 text-xs font-bold text-white">
+                      📍 Your Location
+                    </span>
+                    <span className="rounded-full bg-white/20 px-3 py-2 text-xs font-bold text-white">
+                      ✨ Real Prices
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-3 pt-4 border-t border-white/20">
+                    <button className="flex min-h-11 flex-1 items-center justify-center gap-2 rounded-full bg-white text-sm font-bold text-[#ff7f6e]">
+                      Get Started <ArrowRight size={16} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sample Plans */}
+              {plans.slice(0, 2).map((plan) => (
                 <PlanCard
                   key={plan.id}
                   plan={plan}
@@ -263,7 +298,7 @@ export default function Home({ savedPlanIds, onToggleSaved }) {
               <p className="mt-4 text-sm text-[#554b79] sm:text-base">
                 Give us one plan. We'll give you the rest of the day.
               </p>
-              <Button to="#planner" variant="secondary" className="mt-7">
+              <Button to="/results" variant="secondary" className="mt-7">
                 Build My Outing <ArrowRight size={16} />
               </Button>
             </div>
@@ -271,6 +306,11 @@ export default function Home({ savedPlanIds, onToggleSaved }) {
         </section>
       </main>
       <Footer />
+      <PlanOutingModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)}
+        onPlanSubmit={() => setIsModalOpen(false)}
+      />
     </>
   );
 }

@@ -29,7 +29,7 @@ export default function PlaceCard({ place, onClick, selected = false }) {
         </p>
         <div className="mt-3 flex items-center justify-between gap-2">
           <div className="flex flex-wrap gap-1.5">
-            {place.tags.slice(0, 2).map((tag) => (
+            {(place.tags || []).slice(0, 2).map((tag) => (
               <span
                 key={tag}
                 className="rounded-full bg-[#f5f0eb] px-2.5 py-1 text-[9px] font-bold text-[#766c64]"

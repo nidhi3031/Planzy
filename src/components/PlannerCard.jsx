@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const PlannerCard = () => {
@@ -7,7 +7,7 @@ const PlannerCard = () => {
   const [activity, setActivity] = React.useState("Movie");
   const [date, setDate] = React.useState("2026-10-13");
   const [time, setTime] = React.useState("18:00");
-  const [selectedVibes, setSelectedVibes] = React.useState(["Aesthetic"]);
+  const [selectedVibes, setSelectedVibes] = useState(["Aesthetic"]);
   const [travelTime, setTravelTime] = React.useState("30 mins");
   const [budget, setBudget] = React.useState("$$");
   const handleSubmit = () => {
@@ -16,20 +16,23 @@ const PlannerCard = () => {
       activity,
       date,
       time,
-      selectedVibes,
+      vibe: selectedVibes[0] || "All",
       travelTime,
       budget,
     };
-    console.log(plannerData);
-    navigate("/results"); // Replace "/next-page" with the actual route you want to navigate to after form submission
+    navigate("/results", {
+      state: { planner: plannerData },
+    });
   };
 
   const toggleVibe = (vibe) => {
-    setSelectedVibes((currentVibes) =>
-      currentVibes.includes(vibe)
-        ? currentVibes.filter((item) => item !== vibe)
-        : [...currentVibes, vibe],
-    );
+    if (selectedVibes.includes(vibe)) {
+      setSelectedVibes((currentVibes) =>
+        currentVibes.filter((item) => item !== vibe),
+      );
+    } else if (selectedVibes.length < 3) {
+      setSelectedVibes((currentVibes) => [...currentVibes, vibe]);
+    }
   };
 
   return (
@@ -178,9 +181,10 @@ const PlannerCard = () => {
               onChange={(e) => setBudget(e.target.value)}
               className="h-12 w-full rounded-2xl border border-[#f1ebe5] bg-[#fff7f1] px-4 text-sm outline-none focus:ring-2 focus:ring-[#ffb8a9]"
             >
-              <option>₹</option>
-              <option>₹₹</option>
-              <option>₹₹₹</option>
+              <option value="₹">₹ (₹100–₹500)</option>
+              <option value="₹₹">₹₹ (₹500–₹1,200)</option>
+              <option value="₹₹₹">₹₹₹ (₹1,200–₹2,500)</option>
+              <option value="₹₹₹₹">₹₹₹₹ (₹2,500+)</option>
             </select>
           </div>
         </div>
