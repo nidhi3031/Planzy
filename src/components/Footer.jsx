@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const footerLinks = [
   { label: "Explore", to: "/#examples" },
   { label: "Saved Plans", to: "/saved" },
-  { label: "How it works", to: "/#how-it-works" },
+  { label: "How it works", to: "/how-it-works" },
 ];
 
 export default function Footer() {

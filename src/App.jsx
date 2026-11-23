@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
+import HowItWorks from "./pages/HowItWorks";
 import NotFound from "./pages/NotFound";
 import PlanDetails from "./pages/PlanDetails";
 import Results from "./pages/Results";
@@ -51,6 +52,7 @@ function App() {
             />
           }
         />
+        <Route path="/how-it-works" element={<HowItWorks />} />
         <Route
           path="/plans/:id"
           element={

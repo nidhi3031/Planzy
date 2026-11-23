@@ -121,7 +121,7 @@ export default function Home({ savedPlanIds, onToggleSaved }) {
               day worth remembering.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button to="/results">
+              <Button onClick={() => setIsModalOpen(true)}>
                 Build My Outing <Sparkles size={16} />
               </Button>
               <Button to="#examples" variant="secondary">
@@ -298,7 +298,7 @@ export default function Home({ savedPlanIds, onToggleSaved }) {
               <p className="mt-4 text-sm text-[#554b79] sm:text-base">
                 Give us one plan. We'll give you the rest of the day.
               </p>
-              <Button to="/results" variant="secondary" className="mt-7">
+              <Button onClick={() => setIsModalOpen(true)} variant="secondary" className="mt-7">
                 Build My Outing <ArrowRight size={16} />
               </Button>
             </div>

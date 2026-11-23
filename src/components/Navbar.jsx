@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 
 const navItems = [
   { label: "Explore", to: "/#examples" },
-  { label: "How it works", to: "/#how-it-works" },
+  { label: "How it works", to: "/how-it-works" },
   { label: "Saved", to: "/saved" },
 ];
 
